@@ -1,47 +1,25 @@
-const express = require('express');
+const express = require("express");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
-app.get("/courses", (request, response) => {
-    return response.json([
-        "Curso 1", 
-        "Curso 2", 
-        "Curso 3"
-    ])
-})
+app.use(express.json())
 
-app.post("/courses", (request, response) => {
-    return response.json([
-        "Curso 1", 
-        "Curso 2", 
-        "Curso 3",
-        "Curso 4"
-    ])
-})
+const customers = [];
 
-app.put("/courses/:id", (request, response) => {
-    return response.json([
-        "Curso 1", 
-        "Curso 2", 
-        "Curso 3",
-        "Curso 17"
-    ])
-})
+app.post("/account", (request, response) => {
+    const { cpf, name } = request.body;
 
-app.patch("/courses/:id", (request, response) => {
-    return response.json([
-        "Curso 1", 
-        "Curso 2", 
-        "Curso 25",
-        "Curso 17"
-    ])
-})
+    const id = uuidv4();
 
-app.delete("/courses/:id", (request, response) => {
-    return response.json([
-        "Curso 1", 
-        "Curso 2", 
-    ])
+    customers.push({
+        cpf,
+        name, 
+        id, 
+        statement: []
+    })
+
+    return response.status(201).send();
 })
 
 app.listen(3333)
