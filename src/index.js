@@ -39,7 +39,6 @@ app.post("/account", (request, response) => {
         name, 
         id:  uuidv4(), 
         statement: [], 
-        dadoQualquer: ""
     })
 
     return response.status(201).send();
