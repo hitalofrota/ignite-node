@@ -50,7 +50,6 @@ app.post("/account", (request, response) => {
 //esse verifyIfExistAccountCPF vai deixar somente essa rota com o middleware ativo
 app.get("/statement", verifyIfExistAccountCPF, (request, response) => {
     const { customer } = request;
-    
     return response.json(customer.statement);
 })
 
