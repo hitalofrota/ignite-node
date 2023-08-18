@@ -38,7 +38,7 @@ app.post("/account", (request, response) => {
         cpf,
         name, 
         id:  uuidv4(), 
-        statement: []
+        statement: [], 
     })
 
     return response.status(201).send();
