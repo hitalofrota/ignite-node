@@ -8,7 +8,6 @@ app.use(express.json());
 const customers = [];
 
 //Meu middleware
-
 function verifyIfExistAccountCPF( request, response, next ){
     const { cpf } = request.headers;
 
@@ -54,6 +53,25 @@ app.get("/statement", verifyIfExistAccountCPF, (request, response) => {
     return response.json(customer.statement);
 })
 
+//essa rota vai precisar ter no body, description e amount
+//também vai ter que passar pelo middleware para validar se aquele usuário possui conta
+app.post('/deposit', verifyIfExistAccountCPF, (request, response) => {
+    const { description, amount } = request.body
+
+    const { customer } = request;
+
+    const statementOperation = {
+        description, 
+        amount, 
+        created_at: new Date(), 
+        type: "credit"
+    }
+
+    //não entendi muito bem essa parada de statement para enviar o push
+    customer.statement.push(statementOperation)
+
+    return response.status(201).send();
+})
 
 app.listen(3333);
 
